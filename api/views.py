@@ -3,12 +3,14 @@ import django_filters.rest_framework
 from django.db.models import Q
 from .serializers import TodoSerializer, CategorySerializer
 from .models import Todo, Category
+from rest_framework import filters
 
 class TodoViewSet(ModelViewSet):
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
-    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
+    filter_backends = [filters.OrderingFilter]
     filterset_fields = ['status', 'deadline']
+    ordering_fields = ['deadline']
 
 
 class NotDoneTodoViewSet(ModelViewSet):
